@@ -1,4 +1,5 @@
 # My Dashboard
+[https://ryiguchi.github.io/dashboard-react/](https://ryiguchi.github.io/dashboard-react/)
 ## Description  
 Built as a school project, this is a simple dashbaord that displays your local weather, NY Times news, random quotes and random background images. 
 There's also a link to an image pre-loader.  
