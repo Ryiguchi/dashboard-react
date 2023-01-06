@@ -43,6 +43,7 @@ export const GalleryContainer = styled.div`
   display: ${(props) => (props.state === "hidden" ? "none" : "grid")};
   grid-template-columns: repeat(3, auto);
   gap: 10px;
+  padding: 0 20px 20px 20px;
 `;
 
 export const HeaderContainer = styled.div`
@@ -56,6 +57,7 @@ export const HeaderContainer = styled.div`
 `;
 
 export const Title = styled.h1`
+  font-size: 30px;
   margin-left: 50vw;
   transform: translateX(-50%);
 `;

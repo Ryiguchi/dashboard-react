@@ -1,24 +1,18 @@
 import styled from "styled-components";
 
-export const ImageInfoContainer = styled.div`
+export const ButtonsContainer = styled.div`
   font-size: 20px;
-  grid-column: 3;
+  grid-column: 2;
   grid-row: 1;
-  justify-self: flex-end;
+  justify-self: center;
   padding: 20px;
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   border-radius: 10px;
   background-color: rgb(255, 255, 255, 0.5);
-  width: 250px;
+  width: 300px;
   height: 100px;
   color: #343434;
   text-align: center;
-`;
-
-export const Name = styled.a`
-  text-decoration: none;
-  color: inherit;
-  margin-bottom: 20px;
 `;

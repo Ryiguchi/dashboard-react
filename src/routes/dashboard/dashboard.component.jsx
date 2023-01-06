@@ -9,6 +9,7 @@ import DateTime from "../../components/date-time/date-time.component";
 import News from "../../components/news/news.component";
 import Quotes from "../../components/quotes/quotes.component";
 import ImageInfo from "../../components/image-info/image-info.component";
+import GalleryButtons from "../../components/gallery-buttons/gallery-buttons.component";
 
 import { Background } from "./dashboard.styles";
 
@@ -55,6 +56,7 @@ const Dashboard = () => {
   return (
     <Background image={picData.urls.regular}>
       <Weather />
+      <GalleryButtons />
       <ImageInfo name={picData.user.name} link={picData.user.links.html} />
       <DateTime />
       <News />
