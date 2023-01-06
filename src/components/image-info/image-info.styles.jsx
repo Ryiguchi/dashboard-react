@@ -6,11 +6,12 @@ export const ImageInfoContainer = styled.div`
   grid-row: 1;
   justify-self: flex-end;
   padding: 20px;
-  /* display: flex; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   border-radius: 10px;
   background-color: rgb(255, 255, 255, 0.5);
   width: 250px;
-  height: 100px;
   color: #343434;
   text-align: center;
 `;
@@ -18,4 +19,5 @@ export const ImageInfoContainer = styled.div`
 export const Name = styled.a`
   text-decoration: none;
   color: inherit;
+  margin-bottom: 20px;
 `;

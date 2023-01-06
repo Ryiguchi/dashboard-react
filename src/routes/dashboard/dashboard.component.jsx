@@ -1,6 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
-import axios from "axios";
+import { ImageContext } from "../../contexts/images.context";
+
+import { getPics, handleErrors } from "../../utilities/unsplash.utils";
 
 import Weather from "../../components/weather/weather.component";
 import DateTime from "../../components/date-time/date-time.component";
@@ -22,53 +24,33 @@ const pic = {
     },
   },
 };
+
 let num = 0;
 let turn = 0;
+
 const Dashboard = () => {
   const [picData, setPicData] = useState(pic);
+  const { setImages, images } = useContext(ImageContext);
 
   useEffect(() => {
-    axios
-      .get("https://api.unsplash.com/photos/random", {
-        params: {
-          count: "30",
-          orientation: "landscape",
-        },
-        headers: {
-          Authorization:
-            "Client-ID fx-luDDEPewJ2HwjQlutgRvU4BMhyxTbESg5SDs_FkI",
-        },
-      })
+    getPics
       .then(({ data }) => {
-        const interval = setInterval(() => {
-          setPicData({ ...data[num] });
-          if (num === data.length) num = 0;
-          if (turn % 2 === 0) num++;
-          turn++;
-        }, 10000);
-        return () => clearInterval(interval);
+        setImages(data);
+        startSlideshow(data);
       })
       .catch((error) => {
-        if (error.response) {
-          console.log(
-            `Your request was made but the server responded with a failed status code! (${error.response.status})`
-          );
-          console.log(error.response.data);
-          console.log(error.response.headers);
-        } else if (error.request) {
-          console.log("Your request was made but no response was received!");
-          console.log(error.request);
-        } else {
-          console.log(
-            "Something happened in setting up the request that triggered an Error!"
-          );
-          console.log("Error", error.message);
-        }
-        console.log(error.config);
+        handleErrors(error);
       });
   }, []);
 
-  if (!picData.urls) return null;
+  const startSlideshow = (data) => {
+    setInterval(() => {
+      setPicData(data[num]);
+      if (num === data.length - 1) num = 0;
+      if (turn % 2 === 0) num++;
+      turn++;
+    }, 30000);
+  };
 
   return (
     <Background image={picData.urls.regular}>

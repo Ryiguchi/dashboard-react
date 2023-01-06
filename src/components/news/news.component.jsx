@@ -2,44 +2,35 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 import {
+  gettingNewsMessage,
+  handleErrors,
+  getNews,
+} from "../../utilities/ny-times.utils";
+
+import {
   ArticleContainer,
   Image,
   TextContainer,
   Title,
   ErrorMessage,
 } from "./news.styles";
+
 let articleNum = 0;
-let errorMessage = "Getting the latest headlines...";
 
 const News = () => {
   const [allArticles, setAllArticles] = useState([]);
   const [article, setArticle] = useState([]);
+  const [errorMessage, setErrorMessage] = useState(gettingNewsMessage);
   const { multimedia, title, section, abstract, url, subsection } = article;
 
   useEffect(() => {
-    axios
-      .get(
-        "https://api.nytimes.com/svc/topstories/v2/home.json?api-key=2WO5O3yGb7rDEJluARblo8fltahsDJWT"
-      )
-      .then((data) => {
-        setAllArticles(data.data.results);
-        setArticle(data.data.results[articleNum]);
+    getNews()
+      .then(({ data }) => {
+        setAllArticles(data.results);
+        setArticle(data.results[articleNum]);
       })
       .catch((error) => {
-        if (error.response.status === 401) {
-          errorMessage = "We're sorry!  Your API Key is invalid! ";
-        } else if (error.response.status === 429) {
-          errorMessage =
-            "Too many requests! You have reached your limit! Try again later! ";
-        } else if (error.request) {
-          errorMessage = "Your request was made but no response was received!";
-          console.log(error.request);
-        } else {
-          errorMessage =
-            "Something happened in setting up the request that triggered an Error!";
-          console.log("Error", error.message);
-        }
-        console.log(error.config);
+        setErrorMessage(handleErrors(error));
       });
   }, []);
 
@@ -86,7 +77,10 @@ const News = () => {
             {title}
           </Title>
           <TextContainer>
-            <Image src={multimedia[2].url} alt={title}></Image>
+            <Image
+              src={multimedia ? multimedia[2].url : null}
+              alt={title}
+            ></Image>
             <p className="text">{abstract}</p>
           </TextContainer>
         </>

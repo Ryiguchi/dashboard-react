@@ -3,6 +3,12 @@ import { useState, useEffect } from "react";
 import Button from "../button/button.component";
 
 import {
+  getQuote,
+  handleError,
+  getQuoteMessage,
+} from "../../utilities/quotable.utils";
+
+import {
   QuoteContainer,
   TextContainer,
   QuoteText,
@@ -10,31 +16,20 @@ import {
   ErrorMessage,
 } from "./quotes.styles";
 
-import axios from "axios";
-
-let errorMessage = '"Patience is a virtue" ... your quote is coming!';
-
 const Quotes = () => {
   const [quote, setQuote] = useState([]);
+  const [errorMessage, setErrorMessage] = useState(getQuoteMessage);
 
-  async function getNewQuote() {
-    axios
-      .get("https://api.quotable.io/random")
+  const getNewQuote = () => {
+    getQuote()
       .then((res) => {
         const { data } = res;
         setQuote(data);
       })
       .catch((error) => {
-        if (error.response.status === 404) {
-          errorMessage = `Unable to retrieve a quote!`;
-        } else if (error.request) {
-          errorMessage = "Your request was made but no response was received!";
-        } else {
-          errorMessage =
-            "Something happened in setting up the request that triggered an Error!";
-        }
+        setErrorMessage(handleError(error));
       });
-  }
+  };
 
   useEffect(() => {
     getNewQuote();
@@ -48,7 +43,7 @@ const Quotes = () => {
             <QuoteText>{`"${quote.content}"`}</QuoteText>
             <Author>&#8212; {quote.author}</Author>
           </TextContainer>
-          <Button text="New Quote" callBack={getNewQuote} />
+          <Button callBack={getNewQuote}>New Quote</Button>
         </>
       ) : (
         <ErrorMessage>{errorMessage}</ErrorMessage>

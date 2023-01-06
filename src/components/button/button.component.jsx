@@ -1,7 +1,7 @@
 import { StyledButton } from "./button.styles";
 
-const Button = ({ text, callBack }) => {
-  return <StyledButton onClick={callBack}>{text}</StyledButton>;
+const Button = ({ children, callBack }) => {
+  return <StyledButton onClick={callBack}>{children}</StyledButton>;
 };
 
 export default Button;
