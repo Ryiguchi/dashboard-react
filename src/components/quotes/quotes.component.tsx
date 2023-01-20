@@ -15,9 +15,15 @@ import {
   Author,
   ErrorMessage,
 } from "./quotes.styles";
+import { Quote } from "../../types";
+
+const initialQuoteState = {
+  content: "",
+  author: "",
+};
 
 const Quotes = () => {
-  const [quote, setQuote] = useState([]);
+  const [quote, setQuote] = useState<Quote>(initialQuoteState);
   const [errorMessage, setErrorMessage] = useState(getQuoteMessage);
 
   const getNewQuote = () => {

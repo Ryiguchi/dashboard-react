@@ -12,8 +12,11 @@ import ImageInfo from "../../components/image-info/image-info.component";
 import GalleryButtons from "../../components/gallery-buttons/gallery-buttons.component";
 
 import { Background } from "./dashboard.styles";
+import { Image } from "../../types";
 
 const pic = {
+  id: "",
+  alt_description: "",
   urls: {
     regular:
       "https://unsplash.com/photos/ZCRtfop2hZY/download?ixid=MnwxMjA3fDB8MXxzZWFyY2h8NHx8YmVhY2glMjBzdW5zZXR8ZW58MHx8fHwxNjcyODU3Njc0&force=true",
@@ -30,11 +33,11 @@ let num = 0;
 let turn = 0;
 
 const Dashboard = () => {
-  const [picData, setPicData] = useState(pic);
-  const { setImages, images } = useContext(ImageContext);
+  const [picData, setPicData] = useState<Image>(pic);
+  const { setImages } = useContext(ImageContext);
 
   useEffect(() => {
-    getPics
+    getPics()
       .then(({ data }) => {
         setImages(data);
         startSlideshow(data);
@@ -44,7 +47,7 @@ const Dashboard = () => {
       });
   }, []);
 
-  const startSlideshow = (data) => {
+  const startSlideshow = (data: Image[]) => {
     setInterval(() => {
       setPicData(data[num]);
       if (num === data.length - 1) num = 0;

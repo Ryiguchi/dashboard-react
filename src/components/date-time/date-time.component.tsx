@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { DateContainer } from "./date-time.styles";
 
 const DateTime = () => {
-  const [date, setDate] = useState([]);
-  const [time, setTime] = useState([]);
+  const [date, setDate] = useState<string>("");
+  const [time, setTime] = useState<string>("");
 
   useEffect(() => {
     setInterval(() => {

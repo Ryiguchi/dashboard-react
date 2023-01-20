@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
-export const Background = styled.div`
+type BackgroundProps = {
+  image: string;
+};
+
+export const Background = styled.div<BackgroundProps>`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);

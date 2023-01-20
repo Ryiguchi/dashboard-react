@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "../../../node_modules/react-router/dist/index";
 
 import Button from "../button/button.component";
 
@@ -13,7 +13,11 @@ const GalleryButtons = () => {
   return (
     <ButtonsContainer>
       <Button callBack={goToGalleryHandler}>React Gallery</Button>
-      <a target="_blank" href="https://ryiguchi.github.io/preloader/">
+      <a
+        target="_blank"
+        rel="noreferrer"
+        href="https://ryiguchi.github.io/preloader/"
+      >
         <Button>VJS Gallery</Button>
       </a>
     </ButtonsContainer>

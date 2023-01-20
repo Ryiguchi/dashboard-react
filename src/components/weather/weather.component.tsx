@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { WeatherData } from "../../types";
 
 import {
   getGeolocationPromise,
@@ -17,9 +18,24 @@ import {
   ErrorMessage,
 } from "./weather.styles";
 
+const WeatherDataInitialState = {
+  weather: [
+    {
+      icon: "",
+      description: "",
+    },
+  ],
+  main: {
+    temp: 0,
+  },
+  name: "",
+};
+
 const Weather = () => {
-  const [weatherData, setWeatherData] = useState([]);
-  const [iconUrl, setIconUrl] = useState([]);
+  const [weatherData, setWeatherData] = useState<WeatherData>(
+    WeatherDataInitialState
+  );
+  const [iconUrl, setIconUrl] = useState("");
   const [errorMessage, setErrorMessage] = useState(gettingLocationMessage);
 
   const { main, weather, name } = weatherData;

@@ -1,7 +1,14 @@
 import styled from "styled-components";
 
-export const PreloadContainer = styled.div`
-  display: ${(props) => (props.state === "hidden" ? "none" : "flex")};
+import { IS_LOADING_OPTIONS } from "./image-gallery.component";
+
+type ContainerProps = {
+  state: IS_LOADING_OPTIONS;
+};
+
+export const PreloadContainer = styled.div<ContainerProps>`
+  display: ${(props) =>
+    props.state === IS_LOADING_OPTIONS.hidden ? "none" : "flex"};
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -35,12 +42,13 @@ export const Spinner = styled.div`
   }
 `;
 
-export const GalleryContainer = styled.div`
+export const GalleryContainer = styled.div<ContainerProps>`
   width: 100vw;
   height: 100%;
   min-height: 100vh;
   background-color: #000;
-  display: ${(props) => (props.state === "hidden" ? "none" : "grid")};
+  display: ${(props) =>
+    props.state === IS_LOADING_OPTIONS.hidden ? "none" : "grid"};
   grid-template-columns: repeat(3, auto);
   gap: 10px;
   padding: 0 20px 20px 20px;

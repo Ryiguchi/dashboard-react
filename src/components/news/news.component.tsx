@@ -1,11 +1,14 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useState, useEffect, ImgHTMLAttributes } from "react";
+
+import IonIcon from "../../../node_modules/@reacticons/ionicons/lib/components/IonIcon";
 
 import {
   gettingNewsMessage,
   handleErrors,
   getNews,
 } from "../../utilities/ny-times.utils";
+
+import { Article } from "../../types";
 
 import {
   ArticleContainer,
@@ -17,10 +20,24 @@ import {
 
 let articleNum = 0;
 
+const initialArticleState = {
+  multimedia: [
+    {
+      url: "",
+    },
+  ],
+  title: "",
+  section: "",
+  abstract: "",
+  url: "",
+  subsection: "",
+};
+
 const News = () => {
-  const [allArticles, setAllArticles] = useState([]);
-  const [article, setArticle] = useState([]);
-  const [errorMessage, setErrorMessage] = useState(gettingNewsMessage);
+  const [allArticles, setAllArticles] = useState<Article[]>([]);
+  const [article, setArticle] = useState<Article>(initialArticleState);
+  const [errorMessage, setErrorMessage] = useState<string>(gettingNewsMessage);
+
   const { multimedia, title, section, abstract, url, subsection } = article;
 
   useEffect(() => {
@@ -29,7 +46,7 @@ const News = () => {
         setAllArticles(data.results);
         setArticle(data.results[articleNum]);
       })
-      .catch((error) => {
+      .catch((error: any) => {
         setErrorMessage(handleErrors(error));
       });
   }, []);
@@ -48,7 +65,7 @@ const News = () => {
     <ArticleContainer>
       {title ? (
         <>
-          <ion-icon
+          <IonIcon
             onClick={previousArticle}
             name="chevron-back-outline"
             style={{
@@ -59,8 +76,8 @@ const News = () => {
               left: "-30px",
               transform: "translateY(-50%)",
             }}
-          ></ion-icon>
-          <ion-icon
+          ></IonIcon>
+          <IonIcon
             onClick={nextArticle}
             name="chevron-forward-outline"
             style={{
@@ -71,16 +88,13 @@ const News = () => {
               right: "-30px",
               transform: "translateY(-50%)",
             }}
-          ></ion-icon>
+          ></IonIcon>
           <span className="category">{`${section}/${subsection}`}</span>
           <Title href={url} target="_blank">
             {title}
           </Title>
           <TextContainer>
-            <Image
-              src={multimedia ? multimedia[2].url : null}
-              alt={title}
-            ></Image>
+            <Image src={multimedia[2]?.url} alt={title}></Image>
             <p className="text">{abstract}</p>
           </TextContainer>
         </>

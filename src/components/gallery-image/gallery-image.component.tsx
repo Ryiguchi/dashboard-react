@@ -1,6 +1,13 @@
 import { ImageContainer, Image, Name } from "./gallery-image.styles";
 
-const GalleryImage = ({ callback, imgData }) => {
+import { Image as ImageType } from "../../types";
+
+type GalleryImageProps = {
+  imgData: ImageType;
+  callback: () => void;
+};
+
+const GalleryImage = ({ callback, imgData }: GalleryImageProps) => {
   const { urls, user, alt_description } = imgData;
   const { regular: imgUrl } = urls;
   const { name } = user;

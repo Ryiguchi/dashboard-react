@@ -1,10 +1,12 @@
-import axios from "axios";
+import axios from "../../node_modules/axios/index";
 
 import { NY_TIMES_API } from "./defaults.utils";
 
+import { ArticleData } from "../types";
+
 export const gettingNewsMessage = "Getting the latest headlines...";
 
-export const handleErrors = (error) => {
+export const handleErrors = (error: any): string => {
   if (error.response.status === 401) {
     return "We're sorry!  Your API Key is invalid! ";
   } else if (error.response.status === 429) {
@@ -16,4 +18,4 @@ export const handleErrors = (error) => {
   }
 };
 
-export const getNews = () => axios.get(NY_TIMES_API);
+export const getNews = () => axios.get<ArticleData>(NY_TIMES_API);

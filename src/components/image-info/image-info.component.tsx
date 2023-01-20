@@ -1,6 +1,11 @@
 import { ImageInfoContainer, Name } from "./image-info.styles";
 
-const ImageInfo = ({ name, link }) => {
+type ImageInfoProps = {
+  name: string;
+  link: string;
+};
+
+const ImageInfo = ({ name, link }: ImageInfoProps) => {
   return (
     <ImageInfoContainer>
       <span>Photo by:</span>

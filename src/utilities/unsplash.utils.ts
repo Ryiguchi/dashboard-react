@@ -1,8 +1,10 @@
-import axios from "axios";
+import axios from "../../node_modules/axios/index";
 
 import { UNSPLASH_API, UNSPLASH_PARAMS } from "./defaults.utils";
 
-export const handleErrors = (error) => {
+import { Image } from "../types";
+
+export const handleErrors = (error: any) => {
   if (error.response) {
     console.log(
       `Your request was made but the server responded with a failed status code! (${error.response.status})`
@@ -16,4 +18,4 @@ export const handleErrors = (error) => {
   }
 };
 
-export const getPics = axios.get(UNSPLASH_API, UNSPLASH_PARAMS);
+export const getPics = () => axios.get<Image[]>(UNSPLASH_API, UNSPLASH_PARAMS);
