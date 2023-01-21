@@ -53,7 +53,7 @@ const Dashboard = () => {
       if (num === data.length - 1) num = 0;
       if (turn % 2 === 0) num++;
       turn++;
-    }, 30000);
+    }, 15000);
   };
 
   return (
